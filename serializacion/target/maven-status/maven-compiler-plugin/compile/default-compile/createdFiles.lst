@@ -1,0 +1,4 @@
+servlets\SvVideo.class
+com\umariana\mundo\JakartaRestConfiguration.class
+com\umariana\mundo\Video.class
+com\umariana\mundo\resources\JakartaEE8Resource.class
