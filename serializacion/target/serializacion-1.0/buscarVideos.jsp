@@ -110,7 +110,7 @@
         <div class="options">
             <a href="listarVideos.jsp">Mostrar canciones registradas</a>
             <a href="buscarCategoria.jsp">Buscar por categoría</a>
-            <a href="#">Buscar por nombre</a>
+            <a href="buscarNombre.jsp">Buscar por nombre</a>
         </div>
 
         <div class="image-container">

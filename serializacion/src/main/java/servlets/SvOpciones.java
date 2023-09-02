@@ -61,6 +61,27 @@ public class SvOpciones extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        // Aquí obtén la lista de videos de la sesión si está disponible
+            HttpSession misesion = request.getSession();
+            ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
+
+            // Obtener el valor de generoSeleccionado desde el parámetro "genero"
+            String nombreSeleccionado = request.getParameter("nombre");
+      
+            // Coloca misVideos en la sesión
+            misesion.setAttribute("nombreSeleccionado", nombreSeleccionado);
+            
+            // Si la lista de videos no está en la sesión, cárgala aquí
+            if (misVideos == null) {
+                misVideos = new ArrayList<>();
+                // Agrega los videos a misVideos aquí
+            }
+
+            // Coloca misVideos en la sesión
+            misesion.setAttribute("listaDiscos", misVideos);           
+
+            //Nos redirecciona a la misma pagina
+            response.sendRedirect("buscarNombre.jsp");
     }
 
     @Override
