@@ -10,7 +10,7 @@
 
 <head>
   <base target="_top">
-  <title>App Educativa de Programación</title>
+  <title>Pagina Principal</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -112,7 +112,7 @@
       margin: 0;
     }
 
-    header_2 h2{
+    header_2 h4{
       background-color: #223240;
       color: #ffffff;
       padding: 35px;
@@ -135,14 +135,14 @@
     <p>Crea Tu Propia Lista de Música Favorita</p>
   </header>
   <nav>
-    <a href="#">Agregar canción</a>
-    <a href="#">Buscar canción</a>
+    <a href="agregarVideo.jsp">Agregar canción</a>
+    <a href="listarVideos.jsp">Buscar canción</a>
     <a href="#">Canciones recomendadas</a>
     <a href="#">Eliminar canción</a>
   </nav>
   <main>
     <h2>Pregúntate: ¿Por qué es importante la música?</h2>
-    <p>Elige entre una variedad de cursos de programación para todos los niveles.</p>
+    <p>Hay muchas razones, pero las principales son:</p>
     <ul>
       <li>La música nos conecta emocionalmente.</li>
       <li>Expresa lo que las palabras no pueden.</li>
@@ -159,7 +159,7 @@
   </div>
 
   <header_2>
-    <h2>D I V I É R T E T E!</h2>
+    <h4>&copy; 2023 Johan Ordoñez. Todos los derechos reservados.</h4>
   </header_2>
 
 </body>
