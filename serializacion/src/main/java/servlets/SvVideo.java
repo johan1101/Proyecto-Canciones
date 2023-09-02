@@ -25,19 +25,37 @@ public class SvVideo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          // Aqui viene los datos por POST
-         ArrayList <Video> misVideo = (ArrayList<Video>)request.getAttribute("misVideos");
-         
-         HttpSession misesion = request.getSession();
-         misesion.setAttribute("listaDiscos", misVideo);
-         response.sendRedirect("listarVideos.jsp");
+         // Aquí obtén la lista de videos de la sesión si está disponible
+            HttpSession misesion = request.getSession();
+            ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
 
+            // Si la lista de videos no está en la sesión, cárgala aquí
+            if (misVideos == null) {
+                misVideos = new ArrayList<>();
+                // Agrega los videos a misVideos aquí
+            }
+
+            // Coloca misVideos en la sesión
+            misesion.setAttribute("listaDiscos", misVideos);
+
+            // Luego, redirige a listarVideos.jsp
+            response.sendRedirect("listarVideos.jsp");
     }
 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList <Video> misVideos = new ArrayList<>();
+        
+        
+        HttpSession session = request.getSession();
+        ArrayList <Video> misVideos = (ArrayList<Video>) session.getAttribute("listaDiscos");
+        
+        //Crear una nueva lista si no existe
+        if(misVideos == null){
+            misVideos = new ArrayList<>();
+        }
+        
         
        // Aqui viene los datos por POST
        String idVideo = request.getParameter("idvideo");
@@ -54,10 +72,10 @@ public class SvVideo extends HttpServlet {
         misVideos.add(miVideo);
         
         //Agregar el arrayList completo de la solicitud como atributo
-        request.setAttribute("misVideos", misVideos);
+        session.setAttribute("listaDiscos", misVideos);
         
         //Redireccionar a la pagina de destino
-        request.getRequestDispatcher("agregarVideo.jsp").forward(request, response);
+        response.sendRedirect("agregarVideo.jsp");
 
     }
 

@@ -4,13 +4,16 @@
  */
 package servlets;
 
+import com.umariana.mundo.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,66 +22,47 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SvOpciones", urlPatterns = {"/SvOpciones"})
 public class SvOpciones extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SvOpciones</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SvOpciones at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+     
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+            // Aquí obtén la lista de videos de la sesión si está disponible
+            HttpSession misesion = request.getSession();
+            ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
+
+            // Obtener el valor de generoSeleccionado desde el parámetro "genero"
+            String generoSeleccionado = request.getParameter("genero");
+      
+            // Coloca misVideos en la sesión
+            misesion.setAttribute("generoSeleccionado", generoSeleccionado);
+            
+            // Si la lista de videos no está en la sesión, cárgala aquí
+            if (misVideos == null) {
+                misVideos = new ArrayList<>();
+                // Agrega los videos a misVideos aquí
+            }
+
+            // Coloca misVideos en la sesión
+            misesion.setAttribute("listaDiscos", misVideos);           
+
+            //Nos redirecciona a la misma pagina
+            response.sendRedirect("buscarCategoria.jsp");
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -108,8 +108,8 @@
     <div class="container">
         <h2>Selecciona una opción</h2>
         <div class="options">
-            <a href="#">Mostrar canciones registradas</a>
-            <a href="#">Buscar por categoría</a>
+            <a href="listarVideos.jsp">Mostrar canciones registradas</a>
+            <a href="buscarCategoria.jsp">Buscar por categoría</a>
             <a href="#">Buscar por nombre</a>
         </div>
 

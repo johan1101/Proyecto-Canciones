@@ -88,14 +88,5 @@ public class Video {
 
     public void setLetra(String letra) {
         this.letra = letra;
-    }
-
-
-
-
-
-    
-    
-        
-    
+    }     
 }
