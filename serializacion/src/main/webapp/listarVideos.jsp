@@ -9,36 +9,60 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Listar videos</h1>
-        <form action ="SvVideo" method="GET">
-        </form>
-        <input type = "submit" value="Mostar videos agregados">
-        <%
-           //Obtener el arrayList de la solicitud 
-           ArrayList<Video> misVideos = (ArrayList)request.getSession().getAttribute("misVideo");
-
-           //Mostrar los datos del array
-           for(Video v : misVideos)
-           {
-             out.println("idVideo" + v.getIdVideo()+"<br>");
-             out.println("Titulo" + v.getTitulo());
-             out.println("Autor" + v.getAutor());
-             out.println("Año" + v.getAnio());
-             out.println("Categoria" + v.getCategoria());
-             out.println("Url" + v.getUrl());
-             out.println("Letra" + v.getLetra());
-             
-           }
-        %>
-        
-        
+<head>
+    <meta charset="UTF-8">
+    <title>Mostrar Canciones Registradas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #012030;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+        }
+        h1 {
+            color: #ffffff;
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            color: #DAFDBA;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Canciones Registradas</h1>
         <ul>
-            <li><a href="index.jsp">Regresar</a></li>
+            <% 
+                // Código Java para recorrer la lista de canciones
+                for (Video video : misVideos) {
+            %>
+            <li>
+                <strong>Título:</strong> <%= video.getTitulo() %><br>
+                <strong>Autor:</strong> <%= video.getAutor() %><br>
+                <strong>Año:</strong> <%= video.getAnio() %><br>
+                <strong>Categoría:</strong> <%= video.getCategoria() %><br>
+                <strong>URL:</strong> <a href="<%= video.getUrl() %>"><%= video.getUrl() %></a><br>
+                <strong>Letra:</strong><br>
+                <%= video.getLetra() %>
+            </li>
+            <% } %>
         </ul>
-    </body>
+    </div>
+</body>
 </html>
