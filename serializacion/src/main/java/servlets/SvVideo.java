@@ -68,6 +68,19 @@ public class SvVideo extends HttpServlet {
         
        // Aqui viene los datos por POST
        String idVideo = request.getParameter("idvideo");
+       
+       // Verifica si el valor es un número
+        if (idVideo != null && idVideo.matches("\\d+")) {
+            // El valor es un número, conviértelo a entero
+            int idVideoP = Integer.parseInt(idVideo);
+        } else {
+            int idVideoP = 0;
+            // Mostar el mensaje de error en caso de que el Id no sea valido
+        request.setAttribute("errorMensaje", "No se pudo agregar la canción correctamente. Por favor, verifique los datos.");
+        // Redirige de nuevo a la página de formulario
+        request.getRequestDispatcher("tu_pagina_de_formulario.jsp").forward(request, response);
+        }
+     
        String titulo = request.getParameter("titulo");
        String autor = request.getParameter("autor");
        String anio = request.getParameter("anio");
@@ -75,6 +88,7 @@ public class SvVideo extends HttpServlet {
        String url = request.getParameter("url");
        String letra = request.getParameter("letra");
      
+        
 
         //Ingresar los datos al objeto
         Video miVideo = new Video(Integer.parseInt(idVideo), titulo, autor, anio, categoria, url, letra);        

@@ -79,7 +79,7 @@
         <h1>Agregar Disco</h1>
         <form action="SvVideo" method="POST">
             <label for="idvideo">ID Video:</label>
-            <input type="text" id="idvideo" name="idvideo" required>
+            <input type="text" id="idvideo" name="idvideo" required pattern="[0-9]+" title="Por favor, ingrese solo números">
             
             <label for="titulo">Título de la Canción:</label>
             <input type="text" id="titulo" name="titulo" required>
@@ -101,6 +101,13 @@
             
             <label for="url">URL del Video:</label>
             <input type="text" id="url" name="url" required>
+            
+            <div id="mensajeError" style="color: red;">
+                <% String errorMensaje = (String) request.getAttribute("errorMensaje");
+                if (errorMensaje != null) {
+                    out.println(errorMensaje);
+                } %>
+            </div>
             
             <label for="letra">Letra:</label>
             <textarea id="letra" name="letra" rows="5" required></textarea>
