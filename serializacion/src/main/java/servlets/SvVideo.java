@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "SvVideo", urlPatterns = {"/SvVideo"})
 public class SvVideo extends HttpServlet {
-
+    
     //Array el que va almacenar los videos
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,16 +27,25 @@ public class SvVideo extends HttpServlet {
          // Aqui viene los datos por POST
          // Aquí obtén la lista de videos de la sesión si está disponible
             HttpSession misesion = request.getSession();
-            ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
+            
+            if(misesion.getAttribute("listaDiscos") != null){
+               ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
 
             // Si la lista de videos no está en la sesión, cárgala aquí
             if (misVideos == null) {
                 misVideos = new ArrayList<>();
-                // Agrega los videos a misVideos aquí
             }
 
             // Coloca misVideos en la sesión
-            misesion.setAttribute("listaDiscos", misVideos);
+            misesion.setAttribute("listaDiscos", misVideos);  
+            }else{
+                ArrayList <Video> misVideos = new ArrayList<>();
+                Video miVideo = new Video(0, "", "", "", "", "", "");
+                misVideos.add(miVideo);
+                
+                misesion.setAttribute("listaDiscos", misVideos);
+            }
+           
 
             // Luego, redirige a listarVideos.jsp
             response.sendRedirect("listarVideos.jsp");

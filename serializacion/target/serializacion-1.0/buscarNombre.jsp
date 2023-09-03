@@ -14,7 +14,6 @@
     <title>Buscar por Nombre</title>
     <style>
         body {
-            background-image: url('https://media.istockphoto.com/vectors/treble-clef-neon-icon-musical-note-music-school-logo-night-club-logo-vector-id1406984684?k=20&m=1406984684&s=170667a&w=0&h=YVjA44YZyvi-CDbDRCkcAWSngyifwUY4gWzqWErHPIw=');
             font-family: Arial, sans-serif;
             background-color: #012030;
             margin: 0;
@@ -70,6 +69,13 @@
         label {
             color: #ffffff;
         }
+        .No {
+            color: #A3D9C9;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +104,11 @@
                         }
                     }
                     
+                    if (nombreCancion != null && cancionesEncontradas.isEmpty()) {
+                        %>
+                        <strong class="No">Cancion no encontrada</strong>
+                    <%
+                    }else {        
                     for (Video cancion : cancionesEncontradas) {
                 %>
                 <li>
@@ -106,11 +117,13 @@
                     <strong>Autor:</strong> <%= cancion.getAutor() %><br>
                     <strong>Año:</strong> <%= cancion.getAnio() %><br>
                     <strong>Categoría:</strong> <%= cancion.getCategoria() %><br>
-                    <strong>URL:</strong> <a href=<%= cancion.getUrl() %><%= cancion.getUrl() %></a><br>
+                    <strong></strong> <a> </a><br>
+                    <strong>URL:</strong> <%= cancion.getUrl() %><br>
+                    <strong></strong> <a> </a><br>
                     <strong>Letra:</strong><br>
                     <%= cancion.getLetra() %>
                 </li>
-                <% } %>
+                <% } } %>
             </ul>
         </form>    
     </div>

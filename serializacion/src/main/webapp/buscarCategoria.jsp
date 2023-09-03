@@ -75,7 +75,7 @@
                 <option value="Pop">Pop</option>
                 <option value="Rock">Rock</option>
                 <option value="Hip-Hop">Hip-Hop</option>
-                <option value="Electrónica">Electrónica</option>
+                <option value="Electronica">Electronica</option>
                 <option value="Otra">Otra</option>
             </select>
             <input type="submit" value="Filtrar"><br>
@@ -112,7 +112,9 @@
                     <strong>Autor:</strong> <%= cate.getAutor() %><br>
                     <strong>Año:</strong> <%= cate.getAnio() %><br>
                     <strong>Categoría:</strong> <%= cate.getCategoria() %><br>
-                    <strong>URL:</strong> <a href=<%= cate.getUrl() %></a><br>
+                    <strong></strong> <a> </a><br>
+                    <strong>URL:</strong> <%= cate.getUrl() %><br>
+                    <strong></strong> <a> </a><br>
                     <strong>Letra:</strong><br>
                     <%= cate.getLetra() %>
                 </li>

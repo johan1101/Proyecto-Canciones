@@ -95,7 +95,7 @@
                 <option value="Pop">Pop</option>
                 <option value="Rock">Rock</option>
                 <option value="Hip-Hop">Hip-Hop</option>
-                <option value="Electrónica">Electrónica</option>
+                <option value="Electronica">Electronica</option>
                 <option value="Otra">Otra</option>
             </select>
             
