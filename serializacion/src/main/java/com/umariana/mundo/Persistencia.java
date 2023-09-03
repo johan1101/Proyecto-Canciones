@@ -43,14 +43,17 @@ public class Persistencia {
         
         // Ubicación del archivo de datos
         File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
-
-        
+        System.out.println(archivo.length());
+        if(archivo.length() > 10){
         try (FileReader fr = new FileReader(archivo);
              BufferedReader lector = new BufferedReader(fr)) {
 
             String linea;
             // Leer cada línea del archivo y procesar los datos
       
+            
+                
+            
                while ((linea = lector.readLine()) != null) {
                 String[] datos = linea.split(",");
                 
@@ -66,12 +69,12 @@ public class Persistencia {
                 Video video = new Video(Integer.parseInt(idVideo), titulo, autor, anio, categoria, url, letra);
                 misVideos.add(video);
             }
-      
+            
         } catch (FileNotFoundException e) {
             System.out.println("No se pudo encontrar el archivo de datos.");
         } catch (IOException e) {
             System.out.println("Error durante la lectura del archivo.");
         }
-
+        }
     }
 }

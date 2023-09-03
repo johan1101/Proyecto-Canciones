@@ -4,6 +4,7 @@
     Author     : Johan Ordoñez
 --%>
 
+<%@page import="java.io.File"%>
 <%@page import="com.umariana.mundo.Video"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -91,12 +92,14 @@
                     // Obtener el arrayList de la solicitud
                     ArrayList<Video> misVideos = (ArrayList<Video>)request.getSession().getAttribute("listaDiscos");
                     
+                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
+                    
                     // Obtener el nombre de la canción ingresado por el usuario
                     String nombreCancion = (String) request.getSession().getAttribute("nombreSeleccionado");
                     
                     // Crear un arrayList para almacenar las canciones que coinciden con el nombre
                     ArrayList<Video> cancionesEncontradas = new ArrayList<>();
-
+                    if (misVideos != null && (archivo.exists() && archivo.length() > 10)){
                     // Recorrer la lista de canciones y agregar las que coincidan con el nombre
                     for (Video video : misVideos) {
                         if (video.getTitulo().equals(nombreCancion)) {
@@ -123,7 +126,7 @@
                     <strong>Letra:</strong><br>
                     <%= cancion.getLetra() %>
                 </li>
-                <% } } %>
+                <% } } }%>
             </ul>
         </form>    
     </div>

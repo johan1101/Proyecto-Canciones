@@ -62,6 +62,13 @@
           color: #3B8C66;
             background-color: #ffffff;
         }
+        .vacio {
+             color: #A3D9C9;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -74,10 +81,10 @@
                     ArrayList<Video> misVideos = (ArrayList<Video>)request.getSession().getAttribute("listaDiscos");
                     File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
                     
-                    if (misVideos == null && (archivo.exists() && archivo.length() == 0)) {
-                       %> <strong>No hay canciones registradas</strong> <%
+                    if (misVideos == null && (archivo.exists() && archivo.length() < 10)) {
+                       %> <strong class="vacio">No hay canciones registradas</strong> <%
                     }
-                    if (misVideos == null && (archivo.exists() && archivo.length() > 0)){
+                    if (misVideos == null){
                         ArrayList<Video> misVideo = new ArrayList<>();
                         Persistencia.leerArchivo(misVideo);
                             for (Video video : misVideo) {
@@ -96,7 +103,7 @@
                     </li>
                     <% } } %>
                     <%
-                    if(misVideos != null){
+                    if(misVideos != null ){
                           for (Video video : misVideos) {
                     %>
                     <li>

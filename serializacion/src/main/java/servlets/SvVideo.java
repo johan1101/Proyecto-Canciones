@@ -3,6 +3,7 @@ package servlets;
 
 import com.umariana.mundo.Persistencia;
 import com.umariana.mundo.Video;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -36,8 +37,7 @@ public class SvVideo extends HttpServlet {
             // Si la lista de videos no está en la sesión, cárgala aquí
             if (misVideos == null) {
                 misVideos = new ArrayList<>();
-                Video miVideo = new Video(0, "", "", "", "", "", "");
-                misVideos.add(miVideo);
+                Persistencia.leerArchivo(misVideos);
                 misesion.setAttribute("listaDiscos", misVideos);
             }else{
                 misesion.setAttribute("listaDiscos", misVideos);
@@ -54,7 +54,7 @@ public class SvVideo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
         
         HttpSession session = request.getSession();
         ArrayList <Video> misVideos = (ArrayList<Video>) session.getAttribute("listaDiscos");
@@ -62,23 +62,12 @@ public class SvVideo extends HttpServlet {
         //Crear una nueva lista si no existe
         if(misVideos == null){
             misVideos = new ArrayList<>();
+            Persistencia.leerArchivo(misVideos);
         }
-        
-        
+         
        // Aqui viene los datos por POST
        String idVideo = request.getParameter("idvideo");
        
-       // Verifica si el valor es un número
-        if (idVideo != null && idVideo.matches("\\d+")) {
-            // El valor es un número, conviértelo a entero
-            int idVideoP = Integer.parseInt(idVideo);
-        } else {
-            int idVideoP = 0;
-            // Mostar el mensaje de error en caso de que el Id no sea valido
-        request.setAttribute("errorMensaje", "No se pudo agregar la canción correctamente. Por favor, verifique los datos.");
-        // Redirige de nuevo a la página de formulario
-        request.getRequestDispatcher("tu_pagina_de_formulario.jsp").forward(request, response);
-        }
      
        String titulo = request.getParameter("titulo");
        String autor = request.getParameter("autor");
@@ -87,8 +76,6 @@ public class SvVideo extends HttpServlet {
        String url = request.getParameter("url");
        String letra = request.getParameter("letra");
      
-        Persistencia.leerArchivo(misVideos);
-
         //Ingresar los datos al objeto
         Video miVideo = new Video(Integer.parseInt(idVideo), titulo, autor, anio, categoria, url, letra);        
         misVideos.add(miVideo);

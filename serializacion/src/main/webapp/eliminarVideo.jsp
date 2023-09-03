@@ -4,6 +4,7 @@
     Author     : Johan Ordoñez
 --%>
 
+<%@page import="com.umariana.mundo.Persistencia"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.umariana.mundo.Video"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -70,14 +71,20 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
+        input[type="text"], input[type="submit"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Eliminar cancion</h1>
         <form action="SvEliminar" method="POST">
-            <label for="id">Ingrese el id de la cancion que desea eliminar:</label>
-            <input type="text" id="id" name="id" required>
+            <label for="id">Ingrese el id de la cancion que desea eliminar:</label><br><br>
+            <input type="text" id="id" name="id" required><br><br>
             <input type="submit" value="Eliminar"><br>
             <ul>
                 <% 
@@ -95,16 +102,35 @@
                         
                         //Creamos un arrayList para almacenar los elementos sin el video eliminado
                         ArrayList<Video> nuevaLista = new ArrayList<>();
+                        
+                        ArrayList<Video> comprobar = new ArrayList<>();
 
-                        // Código Java para recorrer y agregar las canciones de la categoria escodiga al arrayList nuevo
+                        if(misVideos == null){
+                            misVideos = new ArrayList<>();
+                            Persistencia.leerArchivo(misVideos);
+                        }
+                        
+                        // Código Java para recorrer y agregar las canciones de la categoria escogiga al arrayList nuevo
                         for (Video video : misVideos) {
-                        nuevaLista.add(video);
+                            nuevaLista.add(video);
                             if(video.getIdVideo() == idCancionEliminar) {
+                            comprobar.add(video);
                             cancionEliminar.add(video);
                             nuevaLista.remove(video);
                         }
+                        
+                        }
+                        
+                    if (seleccion != null && comprobar.isEmpty()) {
+                        %>
+                        <strong class="No">Cancion no encontrada</strong>
+                    <%
+                    }else { 
+                    //misVideos = nuevaLista;
+                    Persistencia.escribirArchivo(nuevaLista);
+                    for(Video prueba: nuevaLista){
+                    System.out.println(prueba.getIdVideo());
                     }
-                    misVideos = nuevaLista;
                         for(Video cate : cancionEliminar){
                         %>
                         <strong class="eli">Este disco fue eliminado con exito</strong><br>
@@ -122,7 +148,7 @@
                         <%= cate.getLetra() %>
                     </li>
                      
-                     <% } } %>
+                     <% } } }%>
             </ul>
         </form>    
     </div>

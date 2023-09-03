@@ -6,7 +6,6 @@ package servlets;
 
 import com.umariana.mundo.Video;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,8 +57,7 @@ public class SvEliminar extends HttpServlet {
         
         // Coloca cancionEliminar en la sesión
         misesion.setAttribute("cancionEliminar", cancionEliminar);
-        
-        
+                
         // Coloca misVideos en la sesión
         misesion.setAttribute("listaDiscos", misVideos);           
 

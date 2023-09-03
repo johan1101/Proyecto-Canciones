@@ -4,6 +4,7 @@
  */
 package servlets;
 
+import com.umariana.mundo.Persistencia;
 import com.umariana.mundo.Video;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class SvOpciones extends HttpServlet {
             if (misVideos == null) {
                 misVideos = new ArrayList<>();
                 // Agrega los videos a misVideos aquí
+                Persistencia.leerArchivo(misVideos);
             }
 
             // Coloca misVideos en la sesión
@@ -74,6 +76,7 @@ public class SvOpciones extends HttpServlet {
             if (misVideos == null) {
                 misVideos = new ArrayList<>();
                 // Agrega los videos a misVideos aquí
+                Persistencia.leerArchivo(misVideos);
             }
 
             // Coloca misVideos en la sesión

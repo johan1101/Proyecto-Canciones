@@ -4,6 +4,8 @@
     Author     : Johan Ordoñez
 --%>
 
+<%@page import="com.umariana.mundo.Persistencia"%>
+<%@page import="java.io.File"%>
 <%@page import="com.umariana.mundo.Video"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -63,6 +65,13 @@
         label {
             color: #fff;
         }
+        .vacio {
+             color: #A3D9C9;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -91,15 +100,19 @@
                 <% 
                     //Obtener el arrayList de la solicitud
                     ArrayList<Video> misVideos = (ArrayList<Video>)request.getSession().getAttribute("listaDiscos");
-                    
+                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
                
-                    
-                    System.out.println(seleccion);
+                    if (misVideos == null && (archivo.exists() && archivo.length() < 10)) {
+                       %> <strong class="vacio">No hay canciones registradas</strong> <%
+                    }
+                    if (misVideos == null && (archivo.exists() && archivo.length() > 10)){       
                     // Creamos un arrayList para alamacenar los elementos seleccionados
                     ArrayList<Video> categoria = new ArrayList<>();
+                    ArrayList<Video> misVideo = new ArrayList<>();
+                    Persistencia.leerArchivo(misVideo);
 
                     // Código Java para recorrer y agregar las canciones de la categoria escodiga al arrayList nuevo
-                    for (Video video : misVideos) {
+                    for (Video video : misVideo) {
                         if (video.getCategoria().equals(seleccion)) {
                         categoria.add(video);
                         }
@@ -118,7 +131,33 @@
                     <strong>Letra:</strong><br>
                     <%= cate.getLetra() %>
                 </li>
-                <% } %>
+                <% } } %>
+                <%
+                    if(misVideos != null){
+                    ArrayList<Video> categoria = new ArrayList<>();
+                 
+                        for (Video video : misVideos) {
+                      if (video.getCategoria().equals(seleccion)) {
+                        categoria.add(video);
+                        }
+                    }
+                    for(Video cate : categoria){
+                %>
+                <li>
+                    <strong>Id:</strong> <%= cate.getIdVideo()%><br>
+                    <strong>Título:</strong> <%= cate.getTitulo() %><br>
+                    <strong>Autor:</strong> <%= cate.getAutor() %><br>
+                    <strong>Año:</strong> <%= cate.getAnio() %><br>
+                    <strong>Categoría:</strong> <%= cate.getCategoria() %><br>
+                    <strong></strong> <a> </a><br>
+                    <strong>URL:</strong> <%= cate.getUrl() %><br>
+                    <strong></strong> <a> </a><br>
+                    <strong>Letra:</strong><br>
+                    <%= cate.getLetra() %>
+                </li>
+                    
+                    
+                <% } } %>
             </ul>
         </form>    
     </div>

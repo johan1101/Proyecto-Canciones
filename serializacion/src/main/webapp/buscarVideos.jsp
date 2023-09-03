@@ -96,6 +96,13 @@
           color: #3B8C66;
             background-color: #ffffff;
         }
+        .vacio {
+             color: #223240;
+            padding: 10px;
+            border: 1px solid #223240;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
 
     </style>
 </head>
@@ -106,7 +113,7 @@
     </header>
 
     <div class="container">
-        <h2>Selecciona una opción</h2>
+        <h2 class="vacio">Selecciona una opción</h2>
         <div class="options">
             <a href="listarVideos.jsp">Mostrar canciones registradas</a>
             <a href="buscarCategoria.jsp">Buscar por categoría</a>
