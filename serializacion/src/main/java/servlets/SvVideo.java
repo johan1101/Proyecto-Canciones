@@ -1,6 +1,7 @@
 
 package servlets;
 
+import com.umariana.mundo.Persistencia;
 import com.umariana.mundo.Video;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,32 +22,30 @@ public class SvVideo extends HttpServlet {
 
     }
 
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         // Aqui viene los datos por POST
+         // Aqui viene los datos por GET
          // Aquí obtén la lista de videos de la sesión si está disponible
             HttpSession misesion = request.getSession();
             
-            if(misesion.getAttribute("listaDiscos") != null){
-               ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
+            ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
 
             // Si la lista de videos no está en la sesión, cárgala aquí
             if (misVideos == null) {
                 misVideos = new ArrayList<>();
-            }
-
-            // Coloca misVideos en la sesión
-            misesion.setAttribute("listaDiscos", misVideos);  
-            }else{
-                ArrayList <Video> misVideos = new ArrayList<>();
                 Video miVideo = new Video(0, "", "", "", "", "", "");
                 misVideos.add(miVideo);
-                
+                misesion.setAttribute("listaDiscos", misVideos);
+            }else{
                 misesion.setAttribute("listaDiscos", misVideos);
             }
-           
-
+            
+            
+            
+          
             // Luego, redirige a listarVideos.jsp
             response.sendRedirect("listarVideos.jsp");
     }
@@ -88,14 +87,18 @@ public class SvVideo extends HttpServlet {
        String url = request.getParameter("url");
        String letra = request.getParameter("letra");
      
-        
+        Persistencia.leerArchivo(misVideos);
 
         //Ingresar los datos al objeto
         Video miVideo = new Video(Integer.parseInt(idVideo), titulo, autor, anio, categoria, url, letra);        
         misVideos.add(miVideo);
         
+        Persistencia.escribirArchivo(misVideos);
+        
         //Agregar el arrayList completo de la solicitud como atributo
         session.setAttribute("listaDiscos", misVideos);
+        
+        
         
         //Redireccionar a la pagina de destino
         response.sendRedirect("agregarVideo.jsp");

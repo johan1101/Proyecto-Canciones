@@ -6,7 +6,6 @@ package servlets;
 
 import com.umariana.mundo.Video;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,7 +60,7 @@ public class SvOpciones extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        // Aquí obtén la lista de videos de la sesión si está disponible
+            // Aquí obtén la lista de videos de la sesión si está disponible
             HttpSession misesion = request.getSession();
             ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
 

@@ -4,6 +4,8 @@
     Author     : Sistemas
 --%>
 
+<%@page import="com.umariana.mundo.Persistencia"%>
+<%@page import="java.io.File"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.umariana.mundo.Video"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -70,23 +72,49 @@
                 <% 
                     //Obtener el arrayList de la solicitud
                     ArrayList<Video> misVideos = (ArrayList<Video>)request.getSession().getAttribute("listaDiscos");
-
-                    // Código Java para recorrer la lista de canciones
-                    for (Video video : misVideos) {
+                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
+                    
+                    if (misVideos == null && (archivo.exists() && archivo.length() == 0)) {
+                       %> <strong>No hay canciones registradas</strong> <%
+                    }
+                    if (misVideos == null && (archivo.exists() && archivo.length() > 0)){
+                        ArrayList<Video> misVideo = new ArrayList<>();
+                        Persistencia.leerArchivo(misVideo);
+                            for (Video video : misVideo) {
                 %>
-                <li>
-                    <strong>Id:</strong> <%= video.getIdVideo()%><br>
-                    <strong>Título:</strong> <%= video.getTitulo() %><br>
-                    <strong>Autor:</strong> <%= video.getAutor() %><br>
-                    <strong>Año:</strong> <%= video.getAnio() %><br>
-                    <strong>Categoría:</strong> <%= video.getCategoria() %><br>
-                    <strong></strong> <a> </a><br>
-                    <strong>URL:</strong> <a href=<%= video.getUrl() %><%= video.getUrl() %></a><br>
-                    <strong></strong> <a> </a><br>
-                    <strong>Letra:</strong><br>
-                    <%= video.getLetra() %>
-                </li>
-                <% } %>
+                    <li>
+                        <strong>Id:</strong> <%= video.getIdVideo()%><br>
+                        <strong>Título:</strong> <%= video.getTitulo() %><br>
+                        <strong>Autor:</strong> <%= video.getAutor() %><br>
+                        <strong>Año:</strong> <%= video.getAnio() %><br>
+                        <strong>Categoría:</strong> <%= video.getCategoria() %><br>
+                        <strong></strong> <a> </a><br>
+                        <strong>URL:</strong> <a href=<%= video.getUrl() %><%= video.getUrl() %></a><br>
+                        <strong></strong> <a> </a><br>
+                        <strong>Letra:</strong><br>
+                        <%= video.getLetra() %>
+                    </li>
+                    <% } } %>
+                    <%
+                    if(misVideos != null){
+                          for (Video video : misVideos) {
+                    %>
+                    <li>
+                        <strong>Id:</strong> <%= video.getIdVideo()%><br>
+                        <strong>Título:</strong> <%= video.getTitulo() %><br>
+                        <strong>Autor:</strong> <%= video.getAutor() %><br>
+                        <strong>Año:</strong> <%= video.getAnio() %><br>
+                        <strong>Categoría:</strong> <%= video.getCategoria() %><br>
+                        <strong></strong> <a> </a><br>
+                        <strong>URL:</strong> <a href=<%= video.getUrl() %><%= video.getUrl() %></a><br>
+                        <strong></strong> <a> </a><br>
+                        <strong>Letra:</strong><br>
+                        <%= video.getLetra() %>
+                    </li>
+                    <% } } %>
+                    
+                   
+                  
             </ul>
         </form>    
     </div>
