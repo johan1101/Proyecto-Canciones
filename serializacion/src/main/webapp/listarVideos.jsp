@@ -78,9 +78,10 @@
             <ul>
                 <% 
                     //Obtener el arrayList de la solicitud
-                    ArrayList<Video> misVideos = (ArrayList<Video>)request.getSession().getAttribute("listaDiscos");
-                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
                     
+                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
+                    ArrayList<Video> misVideos = new ArrayList<>();
+                    Persistencia.leerArchivo(misVideos);
                     if (misVideos == null && (archivo.exists() && archivo.length() < 10)) {
                        %> <strong class="vacio">No hay canciones registradas</strong> <%
                     }

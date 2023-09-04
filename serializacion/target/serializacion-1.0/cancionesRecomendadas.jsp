@@ -1,7 +1,7 @@
 <%-- 
-    Document   : listarVideos
-    Created on : 30/08/2023, 10:15:20 a. m.
-    Author     : Sistemas
+    Document   : cancionesRecomendadas
+    Created on : 4/09/2023, 11:34:53 a. m.
+    Author     : Johan Ordoñez
 --%>
 
 <%@page import="com.umariana.mundo.Persistencia"%>
@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Mostrar Canciones Registradas</title>
+    <title>Mostrar Canciones Recomendadas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,13 +73,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Canciones Registradas</h1>
-        <form action="SvVideo" method="GET">
+        <h1>Canciones Recomendadas</h1>
+        <form action="SvEliminar" method="GET">
             <ul>
                 <% 
                     //Obtener el arrayList de la solicitud
                     
-                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
+                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosRecomendados.txt");
                     ArrayList<Video> misVideos = new ArrayList<>();
                     Persistencia.leerArchivo(misVideos);
                     if (misVideos == null && (archivo.exists() && archivo.length() < 10)) {
@@ -131,3 +131,4 @@
     </footer>
 </body>
 </html>
+

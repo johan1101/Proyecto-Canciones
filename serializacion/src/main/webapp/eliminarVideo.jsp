@@ -77,6 +77,13 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+        .No {
+            color: #A3D9C9;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +91,7 @@
         <h1>Eliminar cancion</h1>
         <form action="SvEliminar" method="POST">
             <label for="id">Ingrese el id de la cancion que desea eliminar:</label><br><br>
-            <input type="text" id="id" name="id" required><br><br>
+            <input type="text" id="id" name="id" required pattern="[0-9]+" title="Por favor, ingrese solo números">
             <input type="submit" value="Eliminar"><br>
             <ul>
                 <% 
@@ -109,25 +116,24 @@
                             misVideos = new ArrayList<>();
                             Persistencia.leerArchivo(misVideos);
                         }
-                        
+
                         // Código Java para recorrer y agregar las canciones de la categoria escogiga al arrayList nuevo
                         for (Video video : misVideos) {
-                            nuevaLista.add(video);
-                            if(video.getIdVideo() == idCancionEliminar) {
+                        
+                            if(video.getIdVideo() != idCancionEliminar) {
+                            nuevaLista.add(video);                          
+                        }else{
                             comprobar.add(video);
                             cancionEliminar.add(video);
                             nuevaLista.remove(video);
+                        }           
                         }
-                        
-                        }
-                        
+                        Persistencia.escribirArchivo(nuevaLista);
                     if (seleccion != null && comprobar.isEmpty()) {
                         %>
                         <strong class="No">Cancion no encontrada</strong>
                     <%
                     }else { 
-                    //misVideos = nuevaLista;
-                    Persistencia.escribirArchivo(nuevaLista);
                     for(Video prueba: nuevaLista){
                     System.out.println(prueba.getIdVideo());
                     }

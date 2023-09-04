@@ -4,6 +4,8 @@
  */
 package servlets;
 
+import com.umariana.mundo.MetodosServlets;
+import com.umariana.mundo.Persistencia;
 import com.umariana.mundo.Video;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,21 +50,7 @@ public class SvEliminar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        HttpSession misesion = request.getSession();
-        ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
-        
-        // Obtener el valor de cancionEliminar desde el parámetro "genero"
-        int cancionEliminar = Integer.parseInt(request.getParameter("id"));
-        
-        // Coloca cancionEliminar en la sesión
-        misesion.setAttribute("cancionEliminar", cancionEliminar);
-                
-        // Coloca misVideos en la sesión
-        misesion.setAttribute("listaDiscos", misVideos);           
-
-        //Nos redirecciona a la misma pagina
-        response.sendRedirect("eliminarVideo.jsp");
+        MetodosServlets.eliminarVideoSvEliminarPost(request, response);
     }
 
     /**
