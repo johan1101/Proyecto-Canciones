@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -19,10 +20,13 @@ import java.util.ArrayList;
 public class Persistencia {
     
         // Ubicación del archivo de datos"
-        public static void leerRecomendados(ArrayList<Video> misRecomendados) throws FileNotFoundException, IOException {
+        public static void leerRecomendados(ArrayList<Video> misRecomendados, ServletContext context) throws FileNotFoundException, IOException {
 
         // Ubicación del archivo de datos"
-        File archivo = new File("./data/discosRecomendados.txt");
+        String rutaRelativa = "/data/discosRecomendados.txt";
+        String rutaAbsoluta = context.getRealPath(rutaRelativa);
+        File archivo = new File(rutaAbsoluta);
+        
         System.out.println(archivo.length());
         if(archivo.length() > 10){
         try (FileReader fr = new FileReader(archivo);
@@ -51,10 +55,12 @@ public class Persistencia {
         }
     }
              
-    public static void escribirArchivo(ArrayList<Video> misVideos) throws FileNotFoundException {
+    public static void escribirArchivo(ArrayList<Video> misVideos, ServletContext context) throws FileNotFoundException {
         
-        // Ubicación del archivo de datos
-        File archivo = new File("./data/discosAgregados.txt");
+        // Ubicación del archivo de datos"
+        String rutaRelativa = "/data/discosAgregados.txt";
+        String rutaAbsoluta = context.getRealPath(rutaRelativa);
+        File archivo = new File(rutaAbsoluta);
 
         try (PrintWriter pluma = new PrintWriter(archivo)) {
             // Iterar a través de la lista de alumnos y escribir sus datos en el archivo
@@ -72,11 +78,14 @@ public class Persistencia {
         }
     }
     
-    public static void leerArchivo(ArrayList<Video> misVideos) throws FileNotFoundException, IOException {
+    public static void leerArchivo(ArrayList<Video> misVideos, ServletContext context) throws FileNotFoundException, IOException {
         
         
-        // Ubicación del archivo de datos
-        File archivo = new File("./data/discosAgregados.txt");
+        // Ubicación del archivo de datos"
+        String rutaRelativa = "/data/discosAgregados.txt";
+        String rutaAbsoluta = context.getRealPath(rutaRelativa);
+        File archivo = new File(rutaAbsoluta);
+        
         System.out.println(archivo.length());
         if(archivo.length() > 10){
         try (FileReader fr = new FileReader(archivo);

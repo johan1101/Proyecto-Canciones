@@ -81,13 +81,15 @@
                     
                     File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto-Canciones-master\\Proyecto-Canciones-master\\serializacion\\data\\discosRecomendados.txt");
                     ArrayList<Video> misRecomendados = new ArrayList<>();
-                    Persistencia.leerRecomendados(misRecomendados);
+                    ServletContext context = getServletContext();
+                    Persistencia.leerRecomendados(misRecomendados, context);
                     if (misRecomendados == null && (archivo.exists() && archivo.length() < 10)) {
                        %> <strong class="vacio">No hay canciones registradas</strong> <%
                     }
+
                     if (misRecomendados == null){
                         ArrayList<Video> misVideo = new ArrayList<>();
-                        Persistencia.leerArchivo(misVideo);
+                        Persistencia.leerArchivo(misVideo, context);
                             for (Video video : misVideo) {
                 %>
                     <li>

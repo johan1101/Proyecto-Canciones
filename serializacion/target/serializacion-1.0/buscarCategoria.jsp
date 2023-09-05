@@ -109,7 +109,8 @@
                     // Creamos un arrayList para alamacenar los elementos seleccionados
                     ArrayList<Video> categoria = new ArrayList<>();
                     ArrayList<Video> misVideo = new ArrayList<>();
-                    Persistencia.leerArchivo(misVideo);
+                    ServletContext context = getServletContext();
+                    Persistencia.leerArchivo(misVideo, context);
 
                     // Código Java para recorrer y agregar las canciones de la categoria escodiga al arrayList nuevo
                     for (Video video : misVideo) {

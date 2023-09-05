@@ -81,13 +81,14 @@
                     
                     File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
                     ArrayList<Video> misVideos = new ArrayList<>();
-                    Persistencia.leerArchivo(misVideos);
+                    ServletContext context = getServletContext();
+                    Persistencia.leerArchivo(misVideos, context);
                     if (misVideos == null && (archivo.exists() && archivo.length() < 10)) {
                        %> <strong class="vacio">No hay canciones registradas</strong> <%
                     }
                     if (misVideos == null){
                         ArrayList<Video> misVideo = new ArrayList<>();
-                        Persistencia.leerArchivo(misVideo);
+                        Persistencia.leerArchivo(misVideo, context);
                             for (Video video : misVideo) {
                 %>
                     <li>

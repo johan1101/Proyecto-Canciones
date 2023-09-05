@@ -24,7 +24,7 @@ public class SvVideo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          // Aqui viene los datos por GET
-         MetodosServlets.listarVideosSvVideoGet(request, response);
+         MetodosServlets.listarVideosSvVideoGet(request, response, getServletContext());
     }
 
     //Metodo POST para agregar video
@@ -32,7 +32,7 @@ public class SvVideo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Aqui vienen los datos por POST
-        MetodosServlets.agregarVideoSvVideoPost(request, response);
+        MetodosServlets.agregarVideoSvVideoPost(request, response, getServletContext());
     }
 
 

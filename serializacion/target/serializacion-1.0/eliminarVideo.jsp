@@ -112,9 +112,10 @@
                         
                         ArrayList<Video> comprobar = new ArrayList<>();
 
+                        ServletContext context = getServletContext();
                         if(misVideos == null){
                             misVideos = new ArrayList<>();
-                            Persistencia.leerArchivo(misVideos);
+                            Persistencia.leerArchivo(misVideos, context);
                         }
 
                         // Código Java para recorrer y agregar las canciones de la categoria escogiga al arrayList nuevo
@@ -128,7 +129,7 @@
                             nuevaLista.remove(video);
                         }           
                         }
-                        Persistencia.escribirArchivo(nuevaLista);
+                        Persistencia.escribirArchivo(nuevaLista, context);
                     if (seleccion != null && comprobar.isEmpty()) {
                         %>
                         <strong class="No">Cancion no encontrada</strong>

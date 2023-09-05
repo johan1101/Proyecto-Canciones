@@ -4,8 +4,10 @@
  */
 package com.umariana.mundo;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,17 +18,17 @@ import javax.servlet.http.HttpSession;
  */
 public class MetodosServlets {
     
-    public static void videosRecomendadosSvEliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public static void videosRecomendadosSvEliminar(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException{
         // Aquí obtén la lista de videos de la sesión si está disponible
             HttpSession misesion = request.getSession();
             
             ArrayList<Video> misRecomendados = new ArrayList<>();
-            Persistencia.leerRecomendados(misRecomendados);
+            Persistencia.leerRecomendados(misRecomendados, context);
 
             // Si la lista de videos no está en la sesión, cárgala aquí
             if (misRecomendados == null) {
                 misRecomendados = new ArrayList<>();
-                Persistencia.leerRecomendados(misRecomendados);
+                Persistencia.leerRecomendados(misRecomendados, context);
                 misesion.setAttribute("listaRecomendados", misRecomendados);
             }else{
                 misesion.setAttribute("listaRecomendados", misRecomendados);
@@ -37,12 +39,12 @@ public class MetodosServlets {
     
     }
     
-    public static void eliminarVideoSvEliminarPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public static void eliminarVideoSvEliminarPost(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException{
         HttpSession misesion = request.getSession();
         //ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
         
         ArrayList<Video> misVideos = new ArrayList<>();
-        Persistencia.leerArchivo(misVideos);
+        Persistencia.leerArchivo(misVideos, context);
          
         // Obtener el valor de cancionEliminar desde el parámetro "genero"
         int cancionEliminar = Integer.parseInt(request.getParameter("id"));
@@ -57,8 +59,11 @@ public class MetodosServlets {
         response.sendRedirect("eliminarVideo.jsp");     
     }
     
-    public static void buscarNombreSvOpcionesPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public static void buscarNombreSvOpcionesPost(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException{
 
+            String rutaRelativa = "/data/discosAgregados.txt";
+            String rutaAbsoluta = context.getRealPath(rutaRelativa);
+            File archivo = new File(rutaAbsoluta);
             // Aquí obtén la lista de videos de la sesión si está disponible
             HttpSession misesion = request.getSession();
             ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
@@ -73,8 +78,9 @@ public class MetodosServlets {
             if (misVideos == null) {
                 misVideos = new ArrayList<>();
                 // Agrega los videos a misVideos aquí
-                Persistencia.leerArchivo(misVideos);
+                Persistencia.leerArchivo(misVideos, context);
             }
+            misesion.setAttribute("archivo", archivo);
 
             // Coloca misVideos en la sesión
             misesion.setAttribute("listaDiscos", misVideos);           
@@ -83,11 +89,11 @@ public class MetodosServlets {
             response.sendRedirect("buscarNombre.jsp");
     }
     
-    public static void buscarCategoriaSvOpcionesGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public static void buscarCategoriaSvOpcionesGet(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException{
         // Aquí obtén la lista de videos de la sesión si está disponible
             HttpSession misesion = request.getSession();
             ArrayList<Video> misVideos = new ArrayList<>();
-            Persistencia.leerArchivo(misVideos);
+            Persistencia.leerArchivo(misVideos, context);
 
             // Obtener el valor de generoSeleccionado desde el parámetro "genero"
             String generoSeleccionado = request.getParameter("genero");
@@ -102,7 +108,7 @@ public class MetodosServlets {
             response.sendRedirect("buscarCategoria.jsp");
     }
     
-    public static void listarVideosSvVideoGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public static void listarVideosSvVideoGet(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException{
         // Aquí obtén la lista de videos de la sesión si está disponible
             HttpSession misesion = request.getSession();
             
@@ -111,7 +117,7 @@ public class MetodosServlets {
             // Si la lista de videos no está en la sesión, cárgala aquí
             if (misVideos == null) {
                 misVideos = new ArrayList<>();
-                Persistencia.leerArchivo(misVideos);
+                Persistencia.leerArchivo(misVideos, context);
                 misesion.setAttribute("listaDiscos", misVideos);
             }else{
                 misesion.setAttribute("listaDiscos", misVideos);
@@ -122,7 +128,7 @@ public class MetodosServlets {
     }
     
     
-    public static void agregarVideoSvVideoPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public static void agregarVideoSvVideoPost(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException{
         
         HttpSession session = request.getSession();
         ArrayList <Video> misVideos = (ArrayList<Video>) session.getAttribute("listaDiscos");
@@ -130,7 +136,7 @@ public class MetodosServlets {
         //Crear una nueva lista si no existe
         if(misVideos == null){
             misVideos = new ArrayList<>();
-            Persistencia.leerArchivo(misVideos);
+            Persistencia.leerArchivo(misVideos, context);
         }
          
        // Aqui viene los datos por POST
@@ -148,7 +154,7 @@ public class MetodosServlets {
         Video miVideo = new Video(Integer.parseInt(idVideo), titulo, autor, anio, categoria, url, letra);        
         misVideos.add(miVideo);
         
-        Persistencia.escribirArchivo(misVideos);
+        Persistencia.escribirArchivo(misVideos, context);
         
         //Agregar el arrayList completo de la solicitud como atributo
         session.setAttribute("listaDiscos", misVideos);

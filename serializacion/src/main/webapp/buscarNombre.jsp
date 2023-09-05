@@ -92,7 +92,10 @@
                     // Obtener el arrayList de la solicitud
                     ArrayList<Video> misVideos = (ArrayList<Video>)request.getSession().getAttribute("listaDiscos");
                     
-                    File archivo = new File("./data/discosAgregados.txt");
+                    String rutaRelativa = "/data/discosAgregados.txt";
+                    ServletContext context = getServletContext();
+                    String rutaAbsoluta = context.getRealPath(rutaRelativa);
+                    File archivo = new File(rutaAbsoluta);
                     
                     // Obtener el nombre de la canción ingresado por el usuario
                     String nombreCancion = (String) request.getSession().getAttribute("nombreSeleccionado");

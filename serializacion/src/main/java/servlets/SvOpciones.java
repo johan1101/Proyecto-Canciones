@@ -34,14 +34,15 @@ public class SvOpciones extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             processRequest(request, response);
-            MetodosServlets.buscarCategoriaSvOpcionesGet(request, response);           
+            MetodosServlets.buscarCategoriaSvOpcionesGet(request, response, getServletContext());           
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             processRequest(request, response);
-            MetodosServlets.buscarNombreSvOpcionesPost(request, response);
+            
+            MetodosServlets.buscarNombreSvOpcionesPost(request, response, getServletContext());
     }
 
     @Override

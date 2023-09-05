@@ -45,7 +45,7 @@ public class SvEliminar extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileNotFoundException {
         processRequest(request, response);
-        MetodosServlets.videosRecomendadosSvEliminar(request, response);
+        MetodosServlets.videosRecomendadosSvEliminar(request, response, getServletContext());
     }
 
   
@@ -53,7 +53,7 @@ public class SvEliminar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        MetodosServlets.eliminarVideoSvEliminarPost(request, response);
+        MetodosServlets.eliminarVideoSvEliminarPost(request, response, getServletContext());
     }
 
     /**
