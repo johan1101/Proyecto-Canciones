@@ -80,12 +80,12 @@
                     //Obtener el arrayList de la solicitud
                     
                     File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosRecomendados.txt");
-                    ArrayList<Video> misVideos = new ArrayList<>();
-                    Persistencia.leerArchivo(misVideos);
-                    if (misVideos == null && (archivo.exists() && archivo.length() < 10)) {
+                    ArrayList<Video> misRecomendados = new ArrayList<>();
+                    Persistencia.leerArchivo(misRecomendados);
+                    if (misRecomendados == null && (archivo.exists() && archivo.length() < 10)) {
                        %> <strong class="vacio">No hay canciones registradas</strong> <%
                     }
-                    if (misVideos == null){
+                    if (misRecomendados == null){
                         ArrayList<Video> misVideo = new ArrayList<>();
                         Persistencia.leerArchivo(misVideo);
                             for (Video video : misVideo) {
@@ -104,8 +104,8 @@
                     </li>
                     <% } } %>
                     <%
-                    if(misVideos != null ){
-                          for (Video video : misVideos) {
+                    if(misRecomendados != null ){
+                          for (Video video : misRecomendados) {
                     %>
                     <li>
                         <strong>Id:</strong> <%= video.getIdVideo()%><br>
@@ -119,15 +119,12 @@
                         <strong>Letra:</strong><br>
                         <%= video.getLetra() %>
                     </li>
-                    <% } } %>
-                    
-                   
-                  
+                    <% } } %>              
             </ul>
         </form>    
     </div>
     <footer>
-      <input type="button" value="Regresar" onclick="window.location.href='buscarVideos.jsp';">
+      <input type="button" value="Regresar" onclick="window.location.href='index.jsp';">
     </footer>
 </body>
 </html>

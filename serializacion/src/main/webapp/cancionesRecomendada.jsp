@@ -79,9 +79,9 @@
                 <% 
                     //Obtener el arrayList de la solicitud
                     
-                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosRecomendados.txt");
+                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto-Canciones-master\\Proyecto-Canciones-master\\serializacion\\data\\discosRecomendados.txt");
                     ArrayList<Video> misRecomendados = new ArrayList<>();
-                    Persistencia.leerArchivo(misRecomendados);
+                    Persistencia.leerRecomendados(misRecomendados);
                     if (misRecomendados == null && (archivo.exists() && archivo.length() < 10)) {
                        %> <strong class="vacio">No hay canciones registradas</strong> <%
                     }
@@ -128,4 +128,3 @@
     </footer>
 </body>
 </html>
-

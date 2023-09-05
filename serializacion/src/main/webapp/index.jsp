@@ -137,7 +137,7 @@
   <nav>
     <a href="agregarVideo.jsp">Agregar canción</a>
     <a href="buscarVideos.jsp">Buscar canción</a>
-    <a href="#">Canciones recomendadas</a>
+    <a href="cancionesRecomendada.jsp">Canciones recomendadas</a>
     <a href="eliminarVideo.jsp">Eliminar canción</a>
   </nav>
   <main>

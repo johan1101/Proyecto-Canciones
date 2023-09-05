@@ -7,14 +7,18 @@ package servlets;
 import com.umariana.mundo.MetodosServlets;
 import com.umariana.mundo.Persistencia;
 import com.umariana.mundo.Video;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -41,8 +45,25 @@ public class SvEliminar extends HttpServlet {
   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, FileNotFoundException {
         processRequest(request, response);
+        // Aquí obtén la lista de videos de la sesión si está disponible
+            HttpSession misesion = request.getSession();
+            
+            ArrayList<Video> misRecomendados = new ArrayList<>();
+            Persistencia.leerRecomendados(misRecomendados);
+
+            // Si la lista de videos no está en la sesión, cárgala aquí
+            if (misRecomendados == null) {
+                misRecomendados = new ArrayList<>();
+                Persistencia.leerRecomendados(misRecomendados);
+                misesion.setAttribute("listaRecomendados", misRecomendados);
+            }else{
+                misesion.setAttribute("listaRecomendados", misRecomendados);
+            }
+            
+            // Luego, redirige a listarVideos.jsp
+            response.sendRedirect("index.jsp");
     }
 
   
