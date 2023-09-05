@@ -6,11 +6,9 @@ package com.umariana.mundo;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -20,23 +18,20 @@ import java.util.ArrayList;
  */
 public class Persistencia {
     
-             // Ubicación del archivo de datos"
-             public static void leerRecomendados(ArrayList<Video> misRecomendados) throws FileNotFoundException, IOException {
-        
-        
         // Ubicación del archivo de datos"
-        File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto-Canciones-master\\Proyecto-Canciones-master\\serializacion\\data\\discosRecomendados.txt");
+        public static void leerRecomendados(ArrayList<Video> misRecomendados) throws FileNotFoundException, IOException {
+
+        // Ubicación del archivo de datos"
+        File archivo = new File("./data/discosRecomendados.txt");
         System.out.println(archivo.length());
         if(archivo.length() > 10){
         try (FileReader fr = new FileReader(archivo);
-             BufferedReader lector = new BufferedReader(fr)) {
+        BufferedReader lector = new BufferedReader(fr)) {
 
             String linea;
-            // Leer cada línea del archivo y procesar los datos
-      
+            // Leer cada línea del archivo y procesar los datos      
                while ((linea = lector.readLine()) != null) {
-                String[] datos = linea.split(",");
-                
+                String[] datos = linea.split(",");                
                 String idVideo = datos[0].trim();
                 String titulo = datos[1].trim();
                 String autor = datos[2].trim();
@@ -44,12 +39,10 @@ public class Persistencia {
                 String categoria = datos[4].trim();
                 String url = datos[5].trim();
                 String letra = datos[6].trim();
-
                 // Crear un objeto Alumno con los datos leídos y agregarlo a la lista
                 Video video = new Video(Integer.parseInt(idVideo), titulo, autor, anio, categoria, url, letra);
                 misRecomendados.add(video);
-            }
-            
+            }           
         } catch (FileNotFoundException e) {
             System.out.println("No se pudo encontrar el archivo de datos.");
         } catch (IOException e) {
@@ -61,7 +54,7 @@ public class Persistencia {
     public static void escribirArchivo(ArrayList<Video> misVideos) throws FileNotFoundException {
         
         // Ubicación del archivo de datos
-        File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto-Canciones-master\\Proyecto-Canciones-master\\serializacion\\data\\discosAgregados.txt");
+        File archivo = new File("./data/discosAgregados.txt");
 
         try (PrintWriter pluma = new PrintWriter(archivo)) {
             // Iterar a través de la lista de alumnos y escribir sus datos en el archivo
@@ -83,7 +76,7 @@ public class Persistencia {
         
         
         // Ubicación del archivo de datos
-        File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto-Canciones-master\\Proyecto-Canciones-master\\serializacion\\data\\discosAgregados.txt");
+        File archivo = new File("./data/discosAgregados.txt");
         System.out.println(archivo.length());
         if(archivo.length() > 10){
         try (FileReader fr = new FileReader(archivo);

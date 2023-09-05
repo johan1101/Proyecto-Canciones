@@ -15,6 +15,28 @@ import javax.servlet.http.HttpSession;
  * @author Johan Ordoñez
  */
 public class MetodosServlets {
+    
+    public static void videosRecomendadosSvEliminar(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        // Aquí obtén la lista de videos de la sesión si está disponible
+            HttpSession misesion = request.getSession();
+            
+            ArrayList<Video> misRecomendados = new ArrayList<>();
+            Persistencia.leerRecomendados(misRecomendados);
+
+            // Si la lista de videos no está en la sesión, cárgala aquí
+            if (misRecomendados == null) {
+                misRecomendados = new ArrayList<>();
+                Persistencia.leerRecomendados(misRecomendados);
+                misesion.setAttribute("listaRecomendados", misRecomendados);
+            }else{
+                misesion.setAttribute("listaRecomendados", misRecomendados);
+            }
+            
+            // Luego, redirige a listarVideos.jsp
+            response.sendRedirect("index.jsp");
+    
+    }
+    
     public static void eliminarVideoSvEliminarPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession misesion = request.getSession();
         //ArrayList<Video> misVideos = (ArrayList<Video>) misesion.getAttribute("listaDiscos");
