@@ -27,27 +27,51 @@ public class SvOpciones extends HttpServlet {
             throws ServletException, IOException {
      
     }
+    
 
-    //Metodo para buscar video por categoria
+     /**
+     * Maneja las solicitudes HTTP GET.
+     *
+     * @param request La solicitud HTTP que contiene los parámetros y datos del cliente.
+     * @param response La respuesta HTTP que se enviará al cliente.
+     * @throws ServletException Si ocurre un error en el servlet.
+     * @throws IOException Si ocurre un error de E/S durante la manipulación de la solicitud o respuesta.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
-        try {           
+        // Procesa la solicitud HTTP GET utilizando el método "processRequest"
+        processRequest(request, response);
+
+        try {
+            // Llama al método "buscarCategoriaSvOpcionesGet" para buscar videos por categoría
             MetodosServlets.buscarCategoriaSvOpcionesGet(request, response, getServletContext());
         } catch (ClassNotFoundException ex) {
+            // Registra cualquier excepción de tipo ClassNotFoundException que pueda ocurrir
             Logger.getLogger(SvOpciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    
+    /**
+     * Maneja las solicitudes HTTP POST.
+     *
+     * @param request La solicitud HTTP que contiene los parámetros y datos del cliente.
+     * @param response La respuesta HTTP que se enviará al cliente.
+     * @throws ServletException Si ocurre un error en el servlet.
+     * @throws IOException Si ocurre un error de E/S durante la manipulación de la solicitud o respuesta.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
-            
+        // Procesa la solicitud HTTP POST utilizando el método "processRequest"
+        processRequest(request, response);
+
         try {
+            // Llama al método "buscarNombreSvOpcionesPost" para buscar videos por nombre
             MetodosServlets.buscarNombreSvOpcionesPost(request, response, getServletContext());
         } catch (ClassNotFoundException ex) {
+            // Registra cualquier excepción de tipo ClassNotFoundException que pueda ocurrir
             Logger.getLogger(SvOpciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

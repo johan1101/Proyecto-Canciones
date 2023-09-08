@@ -79,17 +79,14 @@
                 <% 
                     //Obtener el arrayList de la solicitud
                     
-                    File archivo = new File("C:\\Users\\Johan Ordoñez\\Desktop\\Proyecto Videos\\Discossss-main\\Discossss-main\\Laboratorio_3-master\\serializacion\\data\\discosAgregados.txt");
                     ArrayList<Video> misVideos = new ArrayList<>();
                     ServletContext context = getServletContext();
                     Persistencia.leerArchivo(misVideos, context);
-                    if (misVideos == null && (archivo.exists() && archivo.length() < 0)) {
+                    if (misVideos.isEmpty()) {
                        %> <strong class="vacio">No hay canciones registradas</strong> <%
                     }
-                    if (misVideos == null){
-                        ArrayList<Video> misVideo = new ArrayList<>();
-                        Persistencia.leerArchivo(misVideo, context);
-                            for (Video video : misVideo) {
+                    else{
+                            for (Video video : misVideos) {
                 %>
                     <li>
                         <strong>Id:</strong> <%= video.getIdVideo()%><br>
@@ -104,26 +101,7 @@
                         <%= video.getLetra() %>
                     </li>
                     <% } } %>
-                    <%
-                    if(misVideos != null ){
-                          for (Video video : misVideos) {
-                    %>
-                    <li>
-                        <strong>Id:</strong> <%= video.getIdVideo()%><br>
-                        <strong>Título:</strong> <%= video.getTitulo() %><br>
-                        <strong>Autor:</strong> <%= video.getAutor() %><br>
-                        <strong>Año:</strong> <%= video.getAnio() %><br>
-                        <strong>Categoría:</strong> <%= video.getCategoria() %><br>
-                        <strong></strong> <a> </a><br>
-                        <strong>URL:</strong> <a href=<%= video.getUrl() %><%= video.getUrl() %></a><br>
-                        <strong></strong> <a> </a><br>
-                        <strong>Letra:</strong><br>
-                        <%= video.getLetra() %>
-                    </li>
-                    <% } } %>
-                    
-                   
-                  
+                
             </ul>
         </form>    
     </div>

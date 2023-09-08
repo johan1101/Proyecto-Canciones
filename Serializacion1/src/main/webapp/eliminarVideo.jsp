@@ -97,13 +97,15 @@
                 <% 
                     // Obtener el valor de cancionEliminar de la sesión
                     Integer seleccion = (Integer) request.getSession().getAttribute("cancionEliminar");
+                    
+                    ArrayList<Video> misVideos = new ArrayList<>();
+                    ServletContext context = getServletContext();
+                    Persistencia.leerArchivo(misVideos, context);
+                    
                     if (seleccion != null) {
-                        // Ahora puedes usar "seleccion" como un entero
+
                         int idCancionEliminar = seleccion.intValue();
-                        //Obtener el arrayList de la solicitud
-                        
-                        ArrayList<Video> misVideos = (ArrayList<Video>)request.getSession().getAttribute("listaDiscos");
-                       
+                    
                         // Creamos un arrayList para alamacenar los elementos seleccionados
                         ArrayList<Video> cancionEliminar = new ArrayList<>();
                         
@@ -112,15 +114,8 @@
                         
                         ArrayList<Video> comprobar = new ArrayList<>();
 
-                        ServletContext context = getServletContext();
-                        if(misVideos == null){
-                            misVideos = new ArrayList<>();
-                            Persistencia.leerArchivo(misVideos, context);
-                        }
-
                         // Código Java para recorrer y agregar las canciones de la categoria escogiga al arrayList nuevo
-                        for (Video video : misVideos) {
-                        
+                        for (Video video : misVideos) {                     
                             if(video.getIdVideo() != idCancionEliminar) {
                             nuevaLista.add(video);                          
                         }else{

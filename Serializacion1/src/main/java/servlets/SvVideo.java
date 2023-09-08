@@ -25,22 +25,24 @@ public class SvVideo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            // Aqui viene los datos por GET
-            MetodosServlets.listarVideosSvVideoGet(request, response, getServletContext());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SvVideo.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
-    //Metodo POST para agregar video
+    /**
+     * Maneja las solicitudes HTTP POST para agregar videos.
+     *
+     * @param request La solicitud HTTP que contiene los parámetros y datos del cliente.
+     * @param response La respuesta HTTP que se enviará al cliente.
+     * @throws ServletException Si ocurre un error en el servlet.
+     * @throws IOException Si ocurre un error de E/S durante la manipulación de la solicitud o respuesta.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            //Aqui vienen los datos por POST
+            // Llama al método "agregarVideoSvVideoPost" del servlet "MetodosServlets" para agregar un video
             MetodosServlets.agregarVideoSvVideoPost(request, response, getServletContext());
         } catch (ClassNotFoundException ex) {
+            // Registra cualquier excepción de tipo ClassNotFoundException que pueda ocurrir
             Logger.getLogger(SvVideo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

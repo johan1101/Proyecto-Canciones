@@ -4,6 +4,7 @@
     Author     : Johan Ordoñez
 --%>
 
+<%@page import="com.mundo.serializacion1.Persistencia"%>
 <%@page import="java.io.File"%>
 <%@page import="com.mundo.serializacion1.Video"%>
 <%@page import="java.util.ArrayList"%>
@@ -90,45 +91,49 @@
             <ul>
                 <% 
                     // Obtener el arrayList de la solicitud
-                    ArrayList<Video> misVideos = (ArrayList<Video>)request.getSession().getAttribute("listaDiscos");
-                    
-                    String rutaRelativa = "/data/discosAgregados.ser";
+                    ArrayList<Video> misVideos = new ArrayList();
                     ServletContext context = getServletContext();
-                    String rutaAbsoluta = context.getRealPath(rutaRelativa);
-                    File archivo = new File(rutaAbsoluta);
+                    Persistencia.leerArchivo(misVideos, context);
                     
                     // Obtener el nombre de la canción ingresado por el usuario
                     String nombreCancion = (String) request.getSession().getAttribute("nombreSeleccionado");
                     
                     // Crear un arrayList para almacenar las canciones que coinciden con el nombre
                     ArrayList<Video> cancionesEncontradas = new ArrayList<>();
-                    if (misVideos != null && (archivo.exists() && archivo.length() > 0)){
+                    
+                    if(misVideos.isEmpty()){
+                    %>
+                        <strong class="No">No hay canciones registradas</strong>
+                    <%
+                    }
+                    if (!misVideos.isEmpty()){
                     // Recorrer la lista de canciones y agregar las que coincidan con el nombre
                     for (Video video : misVideos) {
                         if (video.getTitulo().equals(nombreCancion)) {
                             cancionesEncontradas.add(video);
                         }
                     }
-                    
+                 
                     if (nombreCancion != null && cancionesEncontradas.isEmpty()) {
                         %>
                         <strong class="No">Cancion no encontrada</strong>
                     <%
-                    }else {        
+                    }else {   
+
                     for (Video cancion : cancionesEncontradas) {
-                %>
-                <li>
-                    <strong>Id:</strong> <%= cancion.getIdVideo()%><br>
-                    <strong>Título:</strong> <%= cancion.getTitulo() %><br>
-                    <strong>Autor:</strong> <%= cancion.getAutor() %><br>
-                    <strong>Año:</strong> <%= cancion.getAnio() %><br>
-                    <strong>Categoría:</strong> <%= cancion.getCategoria() %><br>
-                    <strong></strong> <a> </a><br>
-                    <strong>URL:</strong> <%= cancion.getUrl() %><br>
-                    <strong></strong> <a> </a><br>
-                    <strong>Letra:</strong><br>
-                    <%= cancion.getLetra() %>
-                </li>
+                    %>
+                    <li>
+                        <strong>Id:</strong> <%= cancion.getIdVideo()%><br>
+                        <strong>Título:</strong> <%= cancion.getTitulo() %><br>
+                        <strong>Autor:</strong> <%= cancion.getAutor() %><br>
+                        <strong>Año:</strong> <%= cancion.getAnio() %><br>
+                        <strong>Categoría:</strong> <%= cancion.getCategoria() %><br>
+                        <strong></strong> <a> </a><br>
+                        <strong>URL:</strong> <%= cancion.getUrl() %><br>
+                        <strong></strong> <a> </a><br>
+                        <strong>Letra:</strong><br>
+                        <%= cancion.getLetra() %>
+                    </li>
                 <% } } }%>
             </ul>
         </form>    

@@ -24,19 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SvEliminar", urlPatterns = {"/SvEliminar"})
 public class SvEliminar extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-      
+        response.setContentType("text/html;charset=UTF-8");     
     }
 
   
@@ -44,30 +35,33 @@ public class SvEliminar extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileNotFoundException {
         processRequest(request, response);
-        try {
-            MetodosServlets.videosRecomendadosSvEliminar(request, response, getServletContext());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SvEliminar.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
   
+     /**
+     * Maneja las solicitudes HTTP POST.
+     *
+     * @param request La solicitud HTTP que contiene los parámetros y datos del cliente.
+     * @param response La respuesta HTTP que se enviará al cliente.
+     * @throws ServletException Si ocurre un error en el servlet.
+     * @throws IOException Si ocurre un error de E/S durante la manipulación de la solicitud o respuesta.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Procesa la solicitud HTTP POST utilizando el método "processRequest"
         processRequest(request, response);
+
         try {
+            // Llama al método "eliminarVideoSvEliminarPost" para gestionar la eliminación del video
             MetodosServlets.eliminarVideoSvEliminarPost(request, response, getServletContext());
         } catch (ClassNotFoundException ex) {
+            // Registra cualquier excepción de tipo ClassNotFoundException que pueda ocurrir
             Logger.getLogger(SvEliminar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    
+    
     @Override
     public String getServletInfo() {
         return "Short description";
