@@ -1,8 +1,0 @@
-servlets\SvOpciones.class
-com\umariana\mundo\Persistencia.class
-com\umariana\mundo\resources\JakartaEE8Resource.class
-com\umariana\mundo\MetodosServlets.class
-servlets\SvVideo.class
-com\umariana\mundo\JakartaRestConfiguration.class
-com\umariana\mundo\Video.class
-servlets\SvEliminar.class
