@@ -1,0 +1,8 @@
+servlets\SvOpciones.class
+com\mundo\serializacion1\JAXRSConfiguration.class
+com\mundo\serializacion1\resources\JavaEE8Resource.class
+com\mundo\serializacion1\Video.class
+com\mundo\serializacion1\MetodosServlets.class
+servlets\SvVideo.class
+com\mundo\serializacion1\Persistencia.class
+servlets\SvEliminar.class
